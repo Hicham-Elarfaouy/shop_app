@@ -1,7 +1,7 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app6/modules/home_screen.dart';
+import 'package:flutter_app6/modules/home_layout.dart';
 import 'package:flutter_app6/shared/components/elements.dart';
 import 'package:flutter_app6/shared/cubit/cubit.dart';
 import 'package:flutter_app6/shared/cubit/states.dart';
@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if(state is stateLoginSuccess){
             if(state.userModel!.status == true){
               CacheHelper.putshared(key: 'isLogin', value: true).then((value) {
-                navigateToAndFinish(context, HomeScreen());
+                navigateToAndFinish(context, HomeLayout());
                 showToast(msg: '${state.userModel!.message}', state: toastState.succes);
               }).catchError((error) {
                 print(error.toString());

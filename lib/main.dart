@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app6/modules/home_screen.dart';
+import 'package:flutter_app6/modules/home_layout.dart';
 import 'package:flutter_app6/modules/login_screen.dart';
 import 'package:flutter_app6/modules/onboarding_screen.dart';
 import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:flutter_app6/shared/network/remote/dio_helper.dart';
+import 'package:flutter_app6/shared/styles/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,7 @@ void main() async {
   Widget widget;
   if(isBoarding.toString() != 'null'){
     if(isLogin.toString() != 'null'){
-      widget = HomeScreen();
+      widget = HomeLayout();
     }else{
       widget = LoginScreen();
     }
@@ -41,7 +42,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
+      theme: lightTheme,
+      //darkTheme: ,
+      //themeMode: ,
       home: widget,
     );
   }

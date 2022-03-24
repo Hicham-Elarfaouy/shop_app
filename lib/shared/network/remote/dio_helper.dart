@@ -9,20 +9,18 @@ class DioHelper{
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
         receiveDataWhenStatusError: true,
-        headers: {
-          'Content-Type':'application/json'
-        },
       ),
     );
   }
 
-  static Future<Response> postLoginData({
+  static Future<Response> postData({
     required String url,
     required Map<String, dynamic> data,
     String lang = 'ar',
 }) async {
     dio.options.headers = {
       'lang':lang,
+      'Content-Type':'application/json',
     };
 
     return await dio.post(

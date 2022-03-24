@@ -1,12 +1,12 @@
 class UserModel {
   bool? status;
   String? message;
-  Map<String, dynamic>? data;
+  UserData? data;
 
   UserModel.Json(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    data = json['data'] == null ? null : json['data'];
+    data = UserData.Json(json['data']);
   }
 }
 

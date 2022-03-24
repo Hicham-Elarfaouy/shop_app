@@ -21,3 +21,7 @@ class stateLoginError extends appStates {
   final String error;
   stateLoginError(this.error);
 }
+
+class stateChangeBottomNav extends appStates {
+
+}
