@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app6/modules/home_layout.dart';
 import 'package:flutter_app6/modules/login_screen.dart';
 import 'package:flutter_app6/modules/onboarding_screen.dart';
+import 'package:flutter_app6/shared/components/constants.dart';
 import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:flutter_app6/shared/network/remote/dio_helper.dart';
 import 'package:flutter_app6/shared/styles/themes.dart';
@@ -15,18 +16,20 @@ void main() async {
   await CacheHelper.init();
   HttpOverrides.global = MyHttpOverrides();
 
-  bool isBoarding = await CacheHelper.getshared(key: 'isBoarding');
-  bool isLogin = await CacheHelper.getshared(key: 'isLogin');
+  bool? isBoarding = await CacheHelper.getshared(key: 'isBoarding');
+  bool? isLogin = await CacheHelper.getshared(key: 'isLogin');
+  token = await CacheHelper.getshared(key: 'token');
+  print(token);
 
   Widget widget;
-  if(isBoarding.toString() != 'null'){
-    if(isLogin.toString() != 'null'){
+  if(isBoarding != null){
+    if(isLogin != null){
       widget = HomeLayout();
     }else{
       widget = LoginScreen();
     }
   }else{
-    widget = OnBoiardingScreen();
+    widget = OnBoardingScreen();
   }
 
   runApp(MyApp(widget));

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app6/modules/search_screen.dart';
+import 'package:flutter_app6/shared/components/elements.dart';
 import 'package:flutter_app6/shared/cubit/cubit.dart';
 import 'package:flutter_app6/shared/cubit/states.dart';
+import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -9,7 +12,7 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => appCubit(),
+      create: (context) => appCubit()..getHomeData(),
       child: BlocConsumer<appCubit, appStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -17,6 +20,7 @@ class HomeLayout extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              elevation: 0,
               title: Text(
                 'Shop App',
                 style: TextStyle(
@@ -26,9 +30,19 @@ class HomeLayout extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    navigateTo(context, SearchScreen());
+                  },
                   icon: Icon(
                     Icons.search,
+                  ),
+                ),
+                IconButton(
+                  onPressed: (){
+                    CacheHelper.removeshared(key: 'isLogin');
+                  },
+                  icon: Icon(
+                    Icons.remove_circle_outline,
                   ),
                 ),
               ],

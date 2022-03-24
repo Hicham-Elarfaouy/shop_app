@@ -5,13 +5,13 @@ import 'package:flutter_app6/shared/components/elements.dart';
 import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnBoiardingScreen extends StatefulWidget {
+class OnBoardingScreen extends StatefulWidget {
 
   @override
-  State<OnBoiardingScreen> createState() => _OnBoiardingScreenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoiardingScreenState extends State<OnBoiardingScreen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   PageController BoardingController = new PageController();
 

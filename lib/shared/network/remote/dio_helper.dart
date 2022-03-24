@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_app6/shared/components/constants.dart';
 
 class DioHelper{
 
@@ -21,6 +22,7 @@ class DioHelper{
     dio.options.headers = {
       'lang':lang,
       'Content-Type':'application/json',
+      'Authorization' : token,
     };
 
     return await dio.post(
@@ -28,4 +30,22 @@ class DioHelper{
       data: data,
     );
   }
+
+  static Future<Response> getData({
+    required String url,
+    Map<String, dynamic>? query,
+    String lang = 'ar',
+}) async {
+    dio.options.headers = {
+      'lang':lang,
+      'Content-Type':'application/json',
+      'Authorization' : token,
+    };
+
+    return await dio.get(
+      url,
+      queryParameters: query,
+    );
+  }
+
 }

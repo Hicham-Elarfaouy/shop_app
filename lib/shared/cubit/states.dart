@@ -14,7 +14,8 @@ class stateLoginLoading extends appStates {
 
 class stateLoginSuccess extends appStates {
   final UserModel? userModel;
-  stateLoginSuccess(this.userModel);
+  final UserData? userData;
+  stateLoginSuccess(this.userModel,this.userData);
 }
 
 class stateLoginError extends appStates {
@@ -23,5 +24,17 @@ class stateLoginError extends appStates {
 }
 
 class stateChangeBottomNav extends appStates {
+
+}
+
+class stateHomeLoading extends appStates {
+
+}
+
+class stateHomeSuccess extends appStates {
+
+}
+
+class stateHomeError extends appStates {
 
 }
