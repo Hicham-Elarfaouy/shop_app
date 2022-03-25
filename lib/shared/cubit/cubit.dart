@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app6/models/categories_model.dart';
 import 'package:flutter_app6/models/home_model.dart';
 import 'package:flutter_app6/models/user_model.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/categories_screen.dart';
@@ -70,6 +71,23 @@ class appCubit extends Cubit<appStates>{
 
       print(error.toString());
       emit(stateHomeError());
+
+    });
+  }
+
+  CategoriesModel? categoriesModel;
+
+  void getCategoriesData(){
+    DioHelper.getData(url: CATEGORIES,lang: 'en').then((value) {
+
+      categoriesModel = CategoriesModel.fromJson(value.data);
+      print(categoriesModel!.status);
+      emit(stateCategoriesSuccess());
+
+    }).catchError((error) {
+
+      print(error.toString());
+      emit(stateCategoriesError());
 
     });
   }

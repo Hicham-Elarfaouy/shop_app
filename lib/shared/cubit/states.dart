@@ -27,14 +27,18 @@ class stateChangeBottomNav extends appStates {
 
 }
 
-class stateHomeLoading extends appStates {
-
-}
-
 class stateHomeSuccess extends appStates {
 
 }
 
 class stateHomeError extends appStates {
+
+}
+
+class stateCategoriesSuccess extends appStates {
+
+}
+
+class stateCategoriesError extends appStates {
 
 }
