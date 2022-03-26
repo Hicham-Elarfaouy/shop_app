@@ -42,3 +42,11 @@ class stateCategoriesSuccess extends appStates {
 class stateCategoriesError extends appStates {
 
 }
+
+class stateFavoritesSuccess extends appStates {
+
+}
+
+class stateFavoritesError extends appStates {
+
+}

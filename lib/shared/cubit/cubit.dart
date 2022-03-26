@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app6/models/categories_model.dart';
+import 'package:flutter_app6/models/favorites_model.dart';
 import 'package:flutter_app6/models/home_model.dart';
 import 'package:flutter_app6/models/user_model.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/categories_screen.dart';
@@ -88,6 +89,25 @@ class appCubit extends Cubit<appStates>{
 
       print(error.toString());
       emit(stateCategoriesError());
+
+    });
+  }
+
+  FavoritesModel? favoritesModel;
+
+  void getFavoritesData(){
+    DioHelper.getData(url: FAVORITES).then((value) {
+
+      favoritesModel = FavoritesModel.fromJson(value.data);
+      print(favoritesModel!.status);
+      emit(stateFavoritesSuccess());
+
+      print(favoritesModel!.data.data[0].product!.id);
+
+    }).catchError((error) {
+
+      print(error.toString());
+      emit(stateFavoritesError());
 
     });
   }

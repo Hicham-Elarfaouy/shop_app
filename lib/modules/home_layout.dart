@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app6/modules/onboarding_screen.dart';
 import 'package:flutter_app6/modules/search_screen.dart';
 import 'package:flutter_app6/shared/components/elements.dart';
 import 'package:flutter_app6/shared/cubit/cubit.dart';
@@ -40,6 +41,9 @@ class HomeLayout extends StatelessWidget {
                 IconButton(
                   onPressed: (){
                     CacheHelper.removeshared(key: 'isLogin');
+                    CacheHelper.removeshared(key: 'token');
+                    CacheHelper.removeshared(key: 'isBoarding');
+                    navigateToAndFinish(context, OnBoardingScreen());
                   },
                   icon: Icon(
                     Icons.remove_circle_outline,
