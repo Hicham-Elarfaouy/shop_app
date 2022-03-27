@@ -12,7 +12,7 @@ class FavoritesModel {
 }
 
 class Data {
-  late List<DataProducts> data = [];
+  List<DataProducts> data = [];
 
   Data.fromJson(Map<String, dynamic> json){
     json['data'].forEach((element){

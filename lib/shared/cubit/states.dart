@@ -50,3 +50,7 @@ class stateFavoritesSuccess extends appStates {
 class stateFavoritesError extends appStates {
 
 }
+
+class stateChangeFavorites extends appStates {
+
+}

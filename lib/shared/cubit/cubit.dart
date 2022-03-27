@@ -96,11 +96,22 @@ class appCubit extends Cubit<appStates>{
   FavoritesModel? favoritesModel;
 
   void getFavoritesData(){
-    DioHelper.getData(url: FAVORITES).then((value) {
+
+    DioHelper.getData(url: FAVORITES,lang: 'en').then((value) {
 
       favoritesModel = FavoritesModel.fromJson(value.data);
       print(favoritesModel!.status);
+
       emit(stateFavoritesSuccess());
+
+      if(favoritesModel!.data.data.isNotEmpty){
+        list.clear();
+        listFav.clear();
+        listFav = favoritesModel!.data.data;
+        favoritesModel!.data.data.forEach((element) {
+          list.add(element.product!.id);
+        });
+      }
 
       print(favoritesModel!.data.data[0].product!.id);
 
@@ -109,6 +120,39 @@ class appCubit extends Cubit<appStates>{
       print(error.toString());
       emit(stateFavoritesError());
 
+    });
+  }
+
+  List<int?> list = [];
+  List<DataProducts> listFav = [];
+
+  void postFavoriteProduct({
+    required int? IdProduct,
+    bool fromFav = false,
+    int? index,
+}){
+
+    if(list.contains(IdProduct)){
+      list.remove(IdProduct);
+      if(fromFav){
+        listFav.removeAt(index!);
+      }
+    }else{
+      list.add(IdProduct);
+    }
+    emit(stateChangeFavorites());
+
+    DioHelper.postData(
+        url: FAVORITES,
+        data: {
+          'product_id' : IdProduct,
+        }
+    ).then((value) {
+
+      emit(stateChangeFavorites());
+    }).catchError((error) {
+      print(error.toString());
+      emit(stateHomeError());
     });
   }
 }
