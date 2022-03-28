@@ -155,4 +155,58 @@ class appCubit extends Cubit<appStates>{
       emit(stateHomeError());
     });
   }
+  
+  UserData? profileData;
+  
+  void getProfileData(){
+    DioHelper.getData(url: PROFILE).then((value) {
+      print(value.data);
+      print(value.data['message']);
+      profileData = UserData.Json(value.data['data']);
+      emit(stateGetProfile());
+    }).catchError((error) {
+      print(error.toString());
+      emit(stateGetProfileError());
+    });
+  }
+
+  UserModel? passwordModel;
+
+  void postChangePassword({
+    required String oldPass,
+    required String newPass,
+}){
+    emit(stateChangePassLoading());
+    DioHelper.postData(url: PASSWORD, data: {
+      'current_password' : oldPass,
+      'new_password' : newPass,
+    }).then((value) {
+      passwordModel = UserModel.Json(value.data);
+      emit(stateChangePassSuccess(passwordModel));
+    }).catchError((error) {
+      print(error.toString());
+      emit(stateChangePassError());
+    });
+  }
+
+  UserModel? editProfileModel;
+
+  void putEditProfile({
+    required String name,
+    required String email,
+    required String phone,
+}){
+    emit(stateEditProfileLoading());
+    DioHelper.putData(url: UPDATE_PROFILE, data: {
+      "name": name,
+      "phone": phone,
+      "email": email,
+    }).then((value) {
+      editProfileModel = UserModel.Json(value.data);
+      emit(stateEditProfileSuccess(editProfileModel));
+    }).catchError((error) {
+      print(error.toString());
+      emit(stateEditProfileError());
+    });
+  }
 }

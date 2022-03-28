@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 showToast(msg: '${state.userModel!.message}', state: toastState.succes);
                 CacheHelper.putshared(key: 'token', value: state.userData!.token);
+                token = state.userData!.token;
               }).catchError((error) {
                 print(error.toString());
               });
@@ -45,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               showToast(msg: '${state.userModel!.message}', state: toastState.error);
             }
           }else if(state is stateLoginError){
-            showToast(msg: 'Lost Connection', state: toastState.warning, Toast: Toast.LENGTH_SHORT);
+            showToast(msg: 'فقد الاتصال بالخادم', state: toastState.warning,);
           }
         },
         builder: (context, state) {

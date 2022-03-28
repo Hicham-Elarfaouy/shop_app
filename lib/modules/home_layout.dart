@@ -13,7 +13,7 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => appCubit()..getHomeData()..getCategoriesData(),
+      create: (context) => appCubit()..getProfileData()..getHomeData()..getCategoriesData(),
       child: BlocConsumer<appCubit, appStates>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -36,17 +36,6 @@ class HomeLayout extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.search,
-                  ),
-                ),
-                IconButton(
-                  onPressed: (){
-                    CacheHelper.removeshared(key: 'isLogin');
-                    CacheHelper.removeshared(key: 'token');
-                    CacheHelper.removeshared(key: 'isBoarding');
-                    navigateToAndFinish(context, OnBoardingScreen());
-                  },
-                  icon: Icon(
-                    Icons.remove_circle_outline,
                   ),
                 ),
               ],

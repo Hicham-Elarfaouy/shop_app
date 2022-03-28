@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app6/modules/home_layout.dart';
 import 'package:flutter_app6/modules/login_screen.dart';
@@ -24,7 +25,10 @@ void main() async {
   Widget widget;
   if(isBoarding != null){
     if(isLogin != null){
-      widget = HomeLayout();
+      widget = Directionality(
+        textDirection: TextDirection.ltr,
+        child: HomeLayout(),
+      );
     }else{
       widget = LoginScreen();
     }
