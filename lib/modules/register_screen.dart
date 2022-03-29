@@ -2,26 +2,26 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app6/modules/home_layout.dart';
-import 'package:flutter_app6/modules/register_screen.dart';
 import 'package:flutter_app6/shared/components/constants.dart';
 import 'package:flutter_app6/shared/components/elements.dart';
 import 'package:flutter_app6/shared/cubit/cubit.dart';
 import 'package:flutter_app6/shared/cubit/states.dart';
 import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
   bool isVisible = false;
 
   TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       create: (context) => appCubit(),
       child: BlocConsumer<appCubit,appStates>(
         listener: (context, state) {
-          if(state is stateLoginSuccess){
+          if(state is stateRegisterSuccess){
             if(state.userModel!.status == true){
               CacheHelper.putshared(key: 'isLogin', value: true).then((value) {
                 navigateToAndFinish(context, HomeLayout());
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             }else{
               showToast(msg: '${state.userModel!.message}', state: toastState.error);
             }
-          }else if(state is stateLoginError){
+          }else if(state is stateRegisterError){
             showToast(msg: 'فقد الاتصال بالخادم', state: toastState.warning,);
           }
         },
@@ -54,9 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
           appCubit cubit = appCubit.get(context);
 
           return Scaffold(
+            appBar: AppBar(),
             body: SafeArea(
               child: Center(
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Form(
@@ -65,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'LOGIN',
+                            'REGISTER',
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 10,
                           ),
                           Text(
-                            'login now to browse our hot offerts',
+                            'register now to browse our hot offerts',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black54,
@@ -83,6 +85,49 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(
                             height: 40,
+                          ),
+                          TextFormField(
+                            controller: nameController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Name',
+                              prefixIcon: Icon(
+                                Icons.text_fields,
+                              ),
+                            ),
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return "this field must not be empty";
+                              }
+                            },
+                            onFieldSubmitted: (value){
+                              formKey.currentState!.validate();
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          TextFormField(
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Phone Number',
+                              prefixIcon: Icon(
+                                Icons.phone,
+                              ),
+                            ),
+                            validator: (value){
+                              if(value!.isEmpty){
+                                return "this field must not be empty";
+                              }
+                            },
+                            onFieldSubmitted: (value){
+                              formKey.currentState!.validate();
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
                           ),
                           TextFormField(
                             controller: emailController,
@@ -96,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             validator: (value){
                               if(value!.isEmpty){
-                                return "email must not be empty";
+                                return "this field must not be empty";
                               }
                             },
                             onFieldSubmitted: (value){
@@ -130,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             validator: (value){
                               if(value!.isEmpty){
-                                return "password must not be empty";
+                                return "this field must not be empty";
                               }
                             },
                             onFieldSubmitted: (value){
@@ -138,10 +183,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           ConditionalBuilder(
-                            condition: state is !stateLoginLoading,
+                            condition: state is !stateRegisterLoading,
                             fallback: (context) => Center(child: CircularProgressIndicator()),
                             builder: (context) => MaterialButton(
                               color: Colors.blue,
@@ -149,14 +194,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               height: 55,
                               onPressed: (){
                                 if(formKey.currentState!.validate()){
-                                  cubit.checkUserLogin(
+                                  cubit.checkUserRegister(
                                     email: emailController.text,
+                                    name: nameController.text,
+                                    phone: phoneController.text,
                                     password: passwordController.text,
                                   );
                                 }
                               },
                               child: Text(
-                                'LOGIN',
+                                'REGISTER',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -164,25 +211,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                  "Don't have an account?"
-                              ),
-                              TextButton(
-                                onPressed: (){
-                                  navigateTo(context, RegisterScreen());
-                                },
-                                child: Text(
-                                    "Register"
-                                ),
-                              ),
-                            ],
                           ),
                         ],
                       ),

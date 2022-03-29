@@ -13,3 +13,5 @@ const PASSWORD = 'change-password';
 const UPDATE_PROFILE = 'update-profile';
 
 const SEARCH = 'products/search';
+
+const REGISTER = 'register';

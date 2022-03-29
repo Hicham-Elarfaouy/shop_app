@@ -25,6 +25,22 @@ class stateLoginError extends appStates {
 }
 
 
+class stateRegisterLoading extends appStates {
+
+}
+
+class stateRegisterSuccess extends appStates {
+  final UserModel? userModel;
+  final UserData? userData;
+  stateRegisterSuccess(this.userModel,this.userData);
+}
+
+class stateRegisterError extends appStates {
+  final String error;
+  stateRegisterError(this.error);
+}
+
+
 class stateChangeBottomNav extends appStates {
 
 }
