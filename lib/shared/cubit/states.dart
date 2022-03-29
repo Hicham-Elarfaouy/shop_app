@@ -97,3 +97,16 @@ class stateEditProfileSuccess extends appStates {
 class stateEditProfileError extends appStates {
 
 }
+
+
+class stateSearchLoading extends appStates {
+
+}
+
+class stateSearchSuccess extends appStates {
+
+}
+
+class stateSearchError extends appStates {
+
+}

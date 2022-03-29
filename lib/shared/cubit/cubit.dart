@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app6/models/categories_model.dart';
 import 'package:flutter_app6/models/favorites_model.dart';
 import 'package:flutter_app6/models/home_model.dart';
+import 'package:flutter_app6/models/search_model.dart';
 import 'package:flutter_app6/models/user_model.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/categories_screen.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/favorites_screen.dart';
@@ -203,10 +204,30 @@ class appCubit extends Cubit<appStates>{
       "email": email,
     }).then((value) {
       editProfileModel = UserModel.Json(value.data);
+      getProfileData();
       emit(stateEditProfileSuccess(editProfileModel));
     }).catchError((error) {
       print(error.toString());
       emit(stateEditProfileError());
     });
   }
+
+
+  SearchModel? searchModel;
+
+  void getSearchData({
+    required String search,
+}){
+    emit(stateSearchLoading());
+    DioHelper.postData(url: SEARCH,lang: 'en', data: {
+      'text' : search,
+    }).then((value) {
+      searchModel = SearchModel.fromJson(value.data);
+      emit(stateSearchSuccess());
+    }).catchError((error) {
+      print(error.toString());
+      emit(stateSearchError());
+    });
+  }
+
 }
