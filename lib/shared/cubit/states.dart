@@ -126,3 +126,8 @@ class stateSearchSuccess extends appStates {
 class stateSearchError extends appStates {
 
 }
+
+
+class stateChangeLang extends appStates {
+
+}

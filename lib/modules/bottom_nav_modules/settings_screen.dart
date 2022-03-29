@@ -18,13 +18,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var formKey = GlobalKey<FormState>();
-
-  TextEditingController nameController = TextEditingController();
-
-  TextEditingController emailController = TextEditingController();
-
-  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: (){
                           setState(() {
                             isLTR = true;
+                            cubit.changeLangMode(lang: true);
                           });
                         },
                         borderRadius: BorderRadius.circular(10),
@@ -81,6 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: (){
                           setState(() {
                             isLTR = false;
+                            cubit.changeLangMode(lang: false);
                           });
                         },
                         borderRadius: BorderRadius.circular(10),

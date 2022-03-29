@@ -22,11 +22,15 @@ void main() async {
   token = await CacheHelper.getshared(key: 'token');
   print(token);
 
+  if(await CacheHelper.getshared(key: 'isLTR') != null){
+    isLTR = await CacheHelper.getshared(key: 'isLTR');
+  }
+
   Widget widget;
   if(isBoarding != null){
     if(isLogin != null){
       widget = Directionality(
-        textDirection: TextDirection.ltr,
+        textDirection: isLTR ? TextDirection.ltr : TextDirection.rtl,
         child: HomeLayout(),
       );
     }else{

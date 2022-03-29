@@ -9,8 +9,10 @@ import 'package:flutter_app6/modules/bottom_nav_modules/categories_screen.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/favorites_screen.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/home_screen.dart';
 import 'package:flutter_app6/modules/bottom_nav_modules/settings_screen.dart';
+import 'package:flutter_app6/shared/components/constants.dart';
 import 'package:flutter_app6/shared/cubit/states.dart';
 import 'package:flutter_app6/shared/network/end_points.dart';
+import 'package:flutter_app6/shared/network/local/cache_helper.dart';
 import 'package:flutter_app6/shared/network/remote/dio_helper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,7 +64,7 @@ class appCubit extends Cubit<appStates>{
 
   void getHomeData(){
 
-    DioHelper.getData(url: HOME,lang: 'en').then((value) {
+    DioHelper.getData(url: HOME,lang: isLTR ? 'en' : 'ar').then((value) {
 
       homeModel = HomeModel.Json(value.data);
       print(homeModel?.status);
@@ -80,7 +82,7 @@ class appCubit extends Cubit<appStates>{
   CategoriesModel? categoriesModel;
 
   void getCategoriesData(){
-    DioHelper.getData(url: CATEGORIES,lang: 'en').then((value) {
+    DioHelper.getData(url: CATEGORIES,lang: isLTR ? 'en' : 'ar').then((value) {
 
       categoriesModel = CategoriesModel.fromJson(value.data);
       print(categoriesModel!.status);
@@ -98,7 +100,7 @@ class appCubit extends Cubit<appStates>{
 
   void getFavoritesData(){
 
-    DioHelper.getData(url: FAVORITES,lang: 'en').then((value) {
+    DioHelper.getData(url: FAVORITES,lang: isLTR ? 'en' : 'ar').then((value) {
 
       favoritesModel = FavoritesModel.fromJson(value.data);
       print(favoritesModel!.status);
@@ -219,7 +221,7 @@ class appCubit extends Cubit<appStates>{
     required String search,
 }){
     emit(stateSearchLoading());
-    DioHelper.postData(url: SEARCH,lang: 'en', data: {
+    DioHelper.postData(url: SEARCH,lang: isLTR ? 'en' : 'ar', data: {
       'text' : search,
     }).then((value) {
       searchModel = SearchModel.fromJson(value.data);
@@ -259,6 +261,14 @@ class appCubit extends Cubit<appStates>{
       print(error.toString());
       emit(stateRegisterError(error.toString()));
     });
+  }
+
+  void changeLangMode({required bool lang}){
+      isLTR = lang;
+      CacheHelper.putshared(key: 'isLTR', value: isLTR).then((value) {
+        emit(stateChangeLang());
+      });
+
   }
 
 }

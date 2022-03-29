@@ -11,25 +11,28 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<appCubit, appStates>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        appCubit cubit = appCubit.get(context);
+    return BlocProvider(
+      create: (context) => appCubit()..getCategoriesData(),
+      child: BlocConsumer<appCubit, appStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          appCubit cubit = appCubit.get(context);
 
-        return ConditionalBuilder(
-          condition: cubit.categoriesModel != null,
-          fallback: (context) => Center(child: CircularProgressIndicator()),
-          builder: (context) => ListView.separated(
-            physics: BouncingScrollPhysics(),
-            itemCount: cubit.categoriesModel!.data.data.length,
-            separatorBuilder: (context, index) => Container(
-              height: 1,
-              color: Colors.grey[300],
+          return ConditionalBuilder(
+            condition: cubit.categoriesModel != null,
+            fallback: (context) => Center(child: CircularProgressIndicator()),
+            builder: (context) => ListView.separated(
+              physics: BouncingScrollPhysics(),
+              itemCount: cubit.categoriesModel!.data.data.length,
+              separatorBuilder: (context, index) => Container(
+                height: 1,
+                color: Colors.grey[300],
+              ),
+              itemBuilder: (context, index) => CatItem(cubit.categoriesModel!.data.data[index]),
             ),
-            itemBuilder: (context, index) => CatItem(cubit.categoriesModel!.data.data[index]),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
