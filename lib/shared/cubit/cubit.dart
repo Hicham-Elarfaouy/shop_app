@@ -43,6 +43,7 @@ class appCubit extends Cubit<appStates>{
     emit(stateLoginLoading());
     DioHelper.postData(
       url: LOGIN,
+      lang: 'en',
       data: {
         'email':email,
         'password':password,
@@ -180,7 +181,7 @@ class appCubit extends Cubit<appStates>{
     required String newPass,
 }){
     emit(stateChangePassLoading());
-    DioHelper.postData(url: PASSWORD, data: {
+    DioHelper.postData(url: PASSWORD,lang: 'en', data: {
       'current_password' : oldPass,
       'new_password' : newPass,
     }).then((value) {
@@ -200,7 +201,7 @@ class appCubit extends Cubit<appStates>{
     required String phone,
 }){
     emit(stateEditProfileLoading());
-    DioHelper.putData(url: UPDATE_PROFILE, data: {
+    DioHelper.putData(url: UPDATE_PROFILE,lang: 'en', data: {
       "name": name,
       "phone": phone,
       "email": email,
@@ -244,6 +245,7 @@ class appCubit extends Cubit<appStates>{
     emit(stateRegisterLoading());
     DioHelper.postData(
       url: REGISTER,
+      lang: 'en',
       data: {
         'email':email,
         'name':name,

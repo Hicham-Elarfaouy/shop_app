@@ -27,7 +27,7 @@ class EditProfileScreen extends StatelessWidget {
                 showToast(msg: '${state.editProfile!.message}', state: toastState.error);
               }
             }else if(state is stateEditProfileError){
-              showToast(msg: 'فقد الاتصال بالخادم', state: toastState.warning);
+              showToast(msg: 'Lost Connection !', state: toastState.warning);
             }
           },
           builder: (context, state) {
@@ -62,7 +62,7 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                               validator: (value){
                                 if(value!.isEmpty){
-                                  return "email must not be empty";
+                                  return "this field must not be empty";
                                 }
                               },
                               onFieldSubmitted: (value){
@@ -84,7 +84,7 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                               validator: (value){
                                 if(value!.isEmpty){
-                                  return "email must not be empty";
+                                  return "this field must not be empty";
                                 }
                               },
                               onFieldSubmitted: (value){
@@ -106,7 +106,7 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                               validator: (value){
                                 if(value!.isEmpty){
-                                  return "email must not be empty";
+                                  return "this field must not be empty";
                                 }
                               },
                               onFieldSubmitted: (value){

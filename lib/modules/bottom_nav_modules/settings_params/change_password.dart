@@ -25,10 +25,10 @@ class ChangePasswordScreen extends StatelessWidget {
                   oldPassController.clear();
                   newPassController.clear();
               }else{
-                showToast(msg: 'المرجوا التأكد من المعلومات المدخلة', state: toastState.error);
+                showToast(msg: 'Please verify the information entered', state: toastState.error);
               }
             }else if(state is stateChangePassError){
-              showToast(msg: 'فقد الاتصال بالخادم', state: toastState.warning);
+              showToast(msg: 'Lost Connection !', state: toastState.warning);
             }
           },
           builder: (context, state) {

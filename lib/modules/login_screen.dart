@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               showToast(msg: '${state.userModel!.message}', state: toastState.error);
             }
           }else if(state is stateLoginError){
-            showToast(msg: 'فقد الاتصال بالخادم', state: toastState.warning,);
+            showToast(msg: 'Lost Connection !', state: toastState.warning,);
           }
         },
         builder: (context, state) {

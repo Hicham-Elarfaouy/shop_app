@@ -104,7 +104,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Row(
                     children: [
@@ -128,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   InkWell(
                     onTap: (){
@@ -162,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 15,
                   ),
                   InkWell(
                     onTap: (){
